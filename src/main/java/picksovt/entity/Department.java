@@ -14,6 +14,7 @@ public class Department {
     @SequenceGenerator(name = "department_gen", sequenceName = "department_seq", allocationSize = 1)
     private Long id;
     private String name;
-   @OneToMany
+   @ManyToMany
+   @JoinColumn(name = "doctors")
     private List<Doctor>doctors;
 }

@@ -1,6 +1,9 @@
 package picksovt.exeptions;
 
-public class MyExeption extends Exception {
+public class MyException extends Exception {
+    public MyException(String s) {
+    }
+
     @Override
     public String getMessage() {
         return super.getMessage();

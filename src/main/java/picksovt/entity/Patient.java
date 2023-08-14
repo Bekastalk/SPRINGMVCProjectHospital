@@ -23,7 +23,8 @@ public class Patient {
     private String email;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "hospital_id")
     private Hospital hospital;
     @OneToMany(mappedBy = "appointments")
     private List<Appointment> appointments;
