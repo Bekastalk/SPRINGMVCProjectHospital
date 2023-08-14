@@ -25,12 +25,10 @@ public class Doctor {
     @Email
     @Column(unique = true)
     private String email;
-    @OneToMany
+    @ManyToMany(mappedBy = "doctors")
     @JoinColumn(name = "department_id")
-    private List<Department> department;
-
-    @OneToMany
-
+    private List<Department> departments;
+    @OneToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
     @JoinColumn(name = "appointment_id")
     private List<Appointment> appointments;
 
