@@ -15,22 +15,17 @@ public class Hospital {
     private Long id;
 
     private String name;
-
     private String address;
 
-    @OneToMany(mappedBy = "hospitals", cascade = CascadeType.ALL)
-    @JoinColumn(name = "department_id")
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
     private List<Department> departments;
 
-    @OneToMany(mappedBy = "hospitals", cascade = CascadeType.ALL)
-    @JoinColumn(name = "appointment_id")
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
     private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "hospitals", cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id")
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
     private List<Patient> patients;
 
-    @OneToMany(mappedBy = "hospitals")
-    @JoinColumn(name = "doctor_id")
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
     private List<Doctor> doctors;
 }
