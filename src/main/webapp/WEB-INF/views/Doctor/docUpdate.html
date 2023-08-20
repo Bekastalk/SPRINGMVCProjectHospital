@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Hospital</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/doctor/{doctorId}/docEdit(doctorId=${doctorId})}" th:object="${docUpdate}">
+  <div>
+    <label for="firstname">FirstName</label>
+    <input type="text" th:field="*{firstName}" id="firstname">
+  </div>
+  <div>
+    <label for="lastname">Lastname</label>
+    <input type="text" th:field="*{lastName}" id="lastname">
+  </div>
+  <div>
+    <label for="gender">Gender</label>
+    <select th:field="*{gender}" id="gender">
+      <option th:each="g : ${T(peaksoft.enums.Gender).values()}" th:value="${g}" th:text="${g}"></option>
+    </select>
+  </div>
+
+  <!-- Dropdown for Position -->
+  <div>
+    <label for="position">Position</label>
+    <select th:field="*{position}" id="position">
+      <option th:each="p : ${T(peaksoft.enums.DoctorType).values()}" th:value="${p}" th:text="${p}"></option>
+    </select>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email">
+  </div>
+
+  <button type="submit">Update Doctor</button>
+
+</form>
+<a class="btn btn-primary" href="/hospital" role="button">back to main</a>
+
+</body>
+</html>

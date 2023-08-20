@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Update</title>
+</head>
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .forms {
+        width: 400px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-block {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    select, input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #e04949;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    button:hover {
+        background-color: #d23f3f;
+    }
+</style>
+<body>
+<form class="forms" th:action="@{update}"
+      th:method="PUT" th:object="${appUpdate}">
+
+    <div class="info-block">
+        <label for="birthday">Recording date:</label>
+        <input type="date" th:field="*{date}" id="birthday" name="birthday" required>
+    </div>
+
+    <div class="info-block">
+        <label for="domain">Patient</label>
+        <select th:field="*{patientId}" id="domain" name="domain" required>
+            <option th:each="pat : ${patients}" th:value="${pat.getId()}"
+                    th:text="${pat.getLastName()+' '+pat.getFirstName()}">Facebook
+            </option>
+        </select>
+    </div>
+
+    <div class="info-block">
+        <label for="doctor">Doctor</label>
+        <select th:field="*{doctorId}" id="doctor" name="domain" required>
+            <option th:each="doc : ${doctors}" th:value="${doc.getId()}"
+                    th:text="${doc.getLastName()+' '+doc.getFirstName()}">Doctor
+            </option>
+        </select>
+    </div>
+
+    <div class="info-block">
+        <label for="dep">Department</label>
+        <select th:field="*{departmentId}" id="dep" name="domain" required>
+            <option th:each="dep : ${departments}" th:value="${dep.getId()}" th:text="${dep.getName()}">dep</option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Update</button>
+    </div>
+</form>
+</body>
+</html>

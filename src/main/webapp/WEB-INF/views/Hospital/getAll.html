@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        /* Общий стиль для заднего фона */
+        body {
+            background-image: url(https://www.film.ru/sites/default/files/images/39465851-1100184.jpg);
+            background-size: cover; /* Растянуть изображение на всю область */
+            background-repeat: no-repeat; /* Запретить повторение изображения */
+        }
+
+        /* Стиль для контейнера карточек */
+        .container-card {
+            width: 80%;
+            margin: 0 auto;
+            background-color: rgba(141, 62, 62, 0.8); /* Полупрозрачный белый фон */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        /* Анимация при наведении на карточку */
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Стили для анимированных кнопок */
+        .btn-animated {
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out; /* Анимация трансформации и цвета фона */
+            border: none;
+            margin-right: 10px; /* Пространство между кнопками */
+        }
+
+        /* Стиль при наведении на кнопку */
+        .btn-animated:hover {
+            transform: scale(1.05); /* Увеличение размера кнопки при наведении */
+        }
+
+        /* Уникальные цвета для кнопок */
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #3e148f;
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #afbb43;
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #13e8cf;
+            color: #fff;
+        }
+
+        /* Добавьте остальные цвета для остальных кнопок */
+    </style>
+</head>
+<body>
+
+<div class="container my-4">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div th:each="hospital : ${allHospitals}" class="col">
+            <div class="card">
+                <img th:src="${hospital.getImage()}" class="card-img-top" alt="Hospital Image">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${hospital.getName()}">Hospital</h5>
+                    <p class="card-text" th:text="${hospital.getAddress()}">Address</p>
+                    <div class="d-grid gap-2">
+                        <form th:method="DELETE" th:action="@{/hospital/{hospitalId}/delete(hospitalId=${hospital.getId()})}">
+                            <button type="submit" class="btn btn-danger btn-animated">Delete</button>
+                        </form>
+                        <form th:method="GET" th:action="@{/hospital/{hospitalId}/newUpdate(hospitalId=${hospital.getId()})}">
+                            <button type="submit" class="btn btn-primary btn-animated">Update</button>
+                        </form>
+                        <form th:method="GET" th:action="@{/department/create/{hospitalId}(hospitalId=${hospital.id})}">
+                            <button type="submit" class="btn btn-secondary">Department</button>
+                        </form>
+                        <form th:method="GET" th:action="@{/doctor/create/{hospitalId}(hospitalId=${hospital.id})}">
+                            <button type="submit" class="btn btn-info">Doctor</button>
+                        </form>
+                        <form th:method="GET" th:action="@{/patient/create/{hospitalId}(hospitalId=${hospital.id})}">
+                            <button type="submit" class="btn btn-info">Patient</button>
+                        </form>
+                        <form th:method="GET" th:action="@{/appointment/create/{hospitalId}(hospitalId=${hospital.id})}">
+                            <button type="submit" class="btn btn-info">Appointment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="btn btn-primary" href="/hospital/new" role="button">Add Hospital</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

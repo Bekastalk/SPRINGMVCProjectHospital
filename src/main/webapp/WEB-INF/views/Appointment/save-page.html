@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Save Appointment</title>
+</head>
+<style>
+    body {
+        background-color: #70dad6;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 130px auto;
+        max-width: 500px;
+    }
+
+    .forms {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: space-around;
+        border-radius: 10px;
+        background-color: #c58f8f;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+        width: 6rem;
+        padding: 0.5rem 0;
+        border-radius: 10px;
+        border: none;
+        background-color: #325dcb;
+        color: #ffffff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    button:hover {
+        background-color: #2c4fa5;
+    }
+
+    .info-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    label {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    select, input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    a {
+        margin-top: 1rem;
+        display: inline-block;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        background-color: #325dcb;
+        color: #ffffff;
+        font-weight: bold;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    a:hover {
+        background-color: #2c4fa5;
+    }
+</style>
+<body>
+<form class="forms" th:method="post" th:action="@{/appointment/save/{hospitalId}(hospitalId=${hospitalId})}"
+      th:object="${newAppointment}">
+    <input type="hidden" th:field="*{id}">
+    <div class="info-block">
+        <label for="date">Date</label>
+        <input type="date" th:field="*{date}" id="date">
+    </div>
+    <div class="info-block">
+        <label for="date">Department</label>
+        <select th:field="*{departmentId}">
+            <option value="">Select department</option>
+            <option th:each="department : ${allDepartments}" th:value="${department.id}"
+                    th:text="${department.name}"></option>
+        </select>
+    </div>
+    <div class="info-block">
+        <label for="date">Doctor</label>
+        <select th:field="*{doctorId}">
+            <option value="">Select doctor</option>
+            <option th:each="doctor : ${allDoctors}" th:value="${doctor.id}"
+                    th:text="${doctor.lastName + ' ' + doctor.firstName + ' ' + doctor.position}"></option>
+        </select>
+    </div>
+    <div class="info-block">
+        <label for="date">Patient</label>
+        <select th:field="*{patientId}">
+            <option value="">Select patient</option>
+            <option th:each="patient : ${allPatients}" th:value="${patient.id}"
+                    th:text="${patient.lastName + ' ' + patient.firstName}"></option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+<a href="/appointment" role="button">View All Appointments</a>
+
+<form th:action="@{/appointment/{hospitalId}(hospitalId=${hospitalId})}">
+    <button th:value="Cancel">View All Hospital Appointments</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #76e59d;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 30px;
+        }
+
+        .info-box {
+            width: 300px;
+            margin: 20px;
+            background-color: #178374;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .info {
+            padding: 15px;
+        }
+
+        .info p {
+            margin: 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .btn-primary {
+            background-color: #325dcb;
+            border: none;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e52b8;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+            color: #ffffff;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border: none;
+            color: #ffffff;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="info-box" th:each="app:${appointments}">
+        <div class="info">
+            <p>Id</p>
+            <p th:text="${app.getId()}"></p>
+        </div>
+        <div class="info">
+            <p>Date</p>
+            <p th:text="${app.getDate()}"></p>
+        </div>
+        <div class="info">
+            <p>Department</p>
+            <p th:text="${app.getDepartment().name}"></p>
+        </div>
+        <div class="info">
+            <p>Doctor</p>
+            <p th:text="${app.doctor.firstName+' '+app.doctor.lastName}"></p>
+        </div>
+        <div class="info">
+            <p>Patient</p>
+            <p th:text="${app.patient.firstName+' '+app.patient.lastName}"></p>
+        </div>
+        <div class="btn-container">
+            <form th:method="delete"
+                  th:action="@{/appointments/{hospitalId}/{appointmentId}/delete(hospitalId=${hospitalId},appointmentId=${app.getId()})}">
+                <input type="submit" th:value="Delete"/>
+            </form>
+            <form th:method="GET"
+                  th:action="@{/appointments/{hospitalId}/{appointmentId}/edit(hospitalId=${hospitalId},appointmentId=${app.getId()})}">
+                <input type="submit" th:value="Update"/>
+            </form>
+        </div>
+    </div>
+</div>
+<a class="btn btn-primary" href="/hospital" role="button">back to main</a>
+<a class="btn btn-primary" th:href="@{/appointment/create/{hospitalId}(hospitalId=${hospitalId})}" role="button">Add appointment</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

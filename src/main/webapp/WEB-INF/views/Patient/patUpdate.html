@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Patient</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        form {
+            border: 1px solid #a1a280;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #151515;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function addPrefix(input) {
+            if (!input.value.startsWith("+996")) {
+                input.value = "+996" + input.value;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <form th:method="POST" th:action="@{/patient/{patientId}/patEdit(patientId=${patientId})}" th:object="${patUpdate}" class="animate__animated animate__fadeIn">
+        <div>
+            <label for="firstname">FirstName</label>
+            <input type="text" th:field="*{firstName}" id="firstname">
+        </div>
+        <div>
+            <label for="lastname">Lastname</label>
+            <input type="text" th:field="*{lastName}" id="lastname">
+        </div>
+
+        <div>
+            <label for="phonenumber">PhoneNumber</label>
+            <input type="text" th:field="*{phoneNumber}" id="phonenumber" placeholder="+996" onfocus="addPrefix(this)">
+        </div>
+
+        <div>
+            <label for="gender">Gender</label>
+            <select th:field="*{gender}" id="gender">
+                <option th:each="g : ${T(peaksoft.enums.Gender).values()}" th:value="${g}" th:text="${g}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="text" th:field="*{email}" id="email">
+        </div>
+
+        <button type="submit">Update Patient</button>
+    </form>
+
+</div>
+<a class="btn btn-primary" href="/hospital" role="button">back to main</a>
+
+</body>
+</html>

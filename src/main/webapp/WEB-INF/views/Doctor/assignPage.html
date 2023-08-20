@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign</title>
+</head>
+<body>
+<h1>Assign</h1>
+<form th:action="@{doctor/accept/{doctorId}(doctorId=${doctorId})}" method="post">
+
+    <input type="hidden" name="doctorId" th:value="${doctorId}"/>
+    <div class="form-group">
+        <label for="departmentId">Select department</label>
+        <select id="departmentId" name="departmentId">
+            <option value="">--Select a department--</option>
+            <option th:each="department:${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+        </select>
+    </div>
+
+    <button type="submit">Assign</button>
+
+</form>
+
+
+</body>
+</html>

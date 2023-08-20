@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #d6ade3; /* Приятный светлый цвет фона */
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 30px;
+        }
+
+        .card {
+            width: 18rem;
+            margin: 20px;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Легкая анимация при наведении */
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+        .card-text {
+            font-size: 1.25rem;
+            color: #6c757d; /* Цвет текста для согласованности */
+        }
+
+        .btn-primary {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card" th:each="department:${departments}">
+        <div class="card-body">
+            <p class="card-text" th:text="${department.getName()}"></p>
+
+            <form th:method="DELETE" th:action="@{/department/{departmentId}/delete(departmentId=${department.getId()})}">
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+            <form th:method="GET" th:action="@{/department/{departmentId}/depUpdate(departmentId=${department.getId()})}">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<a class="btn btn-primary" th:href="@{/department/create/{hospitalId}(hospitalId=${hospitalId})}" role="button">Add department</a>
+<a class="btn btn-primary" href="/hospital" role="button">back to main</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+

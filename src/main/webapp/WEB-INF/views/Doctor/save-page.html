@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>New Company</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/doctor/save/{hospitalId} (hospitalId=${hospitalId})}" th:object="${newDoctor}">
+  <div>
+    <label for="firstname">FirstName</label>
+    <input type="text" th:field="*{firstName}" id="firstname">
+  </div>
+  <div>
+    <label for="lastname">Lastname</label>
+    <input type="text" th:field="*{lastName}" id="lastname">
+  </div>
+
+  <div>
+    <label for="gender">Gender</label>
+    <select th:field="*{gender}" id="gender">
+      <option th:each="g : ${T(peaksoft.enums.Gender).values()}" th:value="${g}" th:text="${g}"></option>
+    </select>
+  </div>
+
+  <!-- Dropdown for Position -->
+  <div>
+    <label for="position">Position</label>
+    <select th:field="*{position}" id="position">
+      <option th:each="p : ${T(peaksoft.enums.DoctorType).values()}" th:value="${p}" th:text="${p}"></option>
+    </select>
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email">
+  </div>
+
+  <button type="submit">Save Doctor</button>
+
+</form>
+
+<a class="btn btn-primary" href="/doctor" role="button">All Doctors</a>
+<form th:action="@{/doctor/{hospitalId}(hospitalId=${hospitalId})}">
+  <button th:value="Cancel">this hospital doctors</button>
+</form>
+
+</body>
+</html>

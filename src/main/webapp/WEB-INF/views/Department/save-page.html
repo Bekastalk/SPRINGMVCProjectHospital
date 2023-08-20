@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>New Company</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/department/save/{hospitalId} (hospitalId=${hospitalId})}" th:object="${newDepartment}">
+  <div>
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name">
+  </div>
+
+  <button type="submit">Save Department</button>
+
+</form>
+<a class="btn btn-primary" href="/department" role="button">All Departments</a>
+
+<form th:action="@{/department/{hospitalId}(hospitalId=${hospitalId})}">
+  <button th:value="Cancel">this hospital departments</button>
+</form>
+</body>
+</html>
